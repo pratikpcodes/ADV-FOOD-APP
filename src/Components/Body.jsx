@@ -3,9 +3,14 @@ import { useState } from "react";
 import { API_URL } from "./constants";
 import { data } from "autoprefixer";
 import ItemCard from "./ItemCard";
+import Shimmer from "./Shimmer";
+import ShimmerUI from "./ShimmerUI";
+
 function Body() {
   const [finalData, setFinalData] = useState([]);
   //// array dena tha
+
+  
   useEffect(() => {
     getResData();
   }, []);
@@ -50,19 +55,20 @@ function Body() {
   }
 
   return (
-    <>
-   
-    <div className="container mx-auto">
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 ">
-          {finalData.map((index) => {
-            return <ItemCard key={index?.info?.id} {...index?.info} />;
-          })}
-        </div>
+    <div className="container mx-auto ">
+     
+      <div>
+        {finalData.length == 0 ? (
+          <ShimmerUI />
+        ) : (
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 ">
+            {finalData.map((index) => {
+              return <ItemCard key={index?.info?.id} {...index?.info} />;
+            })}
+          </div>
+        )}
       </div>
-      
-   
-   
-    </>
+    </div>
   );
 }
 
