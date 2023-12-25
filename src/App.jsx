@@ -5,6 +5,7 @@ import Header from "./Components/Header";
 import Footer from "./Components/Footer";
 import ItemCard from "./Components/Body";
 import Body from "./Components/Body";
+import SearchButton from "./Components/searchButton";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -12,8 +13,8 @@ function App() {
   return (
     <>
       <Header />
-     
  
+
       <Body />
       <Footer />
     </>
