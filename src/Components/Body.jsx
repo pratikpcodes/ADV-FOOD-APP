@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { API_URL } from "./constants";
 import { data } from "autoprefixer";
@@ -7,7 +7,7 @@ import Shimmer from "./Shimmer";
 import ShimmerUI from "./ShimmerUI";
 import SearchButton from "./searchButton";
 import SearchContext from "./contexts/SearchContext";
-
+import { useContext } from "react";
 function Body() {
   let [finalData, setFinalData] = useState([]);
   let [demo, setdemo] = useState([]);
@@ -18,11 +18,10 @@ function Body() {
   //   setbuttonData(data);
   // };
 
-  const {searchTxt,setsearchTxt} = useContext(SearchContext)
+  const { searchTxt, setsearchTxt } = useContext(SearchContext);
   useEffect(() => {
     getResData();
   }, []);
-
 
   // const fetchData = async () => {
 
@@ -78,33 +77,31 @@ function Body() {
     }
   };
   const handlefilterClick2 = () => {
-    let filtered2 = demo.filter((index) => index.info.name === searchTxt);
+    let filtered2 = demo.filter((index) =>
+      index.info.name.toLowerCase().includes(searchTxt.toLowerCase())
+    );
     console.log(filtered2);
     setFinalData(filtered2);
-    if(searchTxt.length==0)
-    setFinalData(demo)
+    if (searchTxt.length == 0) setFinalData(demo);
   };
-  console.log(searchTxt)
+  console.log(searchTxt + "from body.jsx");
 
   return (
     <div className="container mx-auto ">
-      <div className="flex items-center justify-between ">
+      <div className=" items-center flex justify-between ">
         <button
           className="transition-transform transform hover:scale-105 text-black hover:text-cyan-800 object-cover rounded-full text-3xl "
           onClick={handlefilterClick}
-          
         >
           &#9733;
         </button>
-        <SearchButton  />
-         <button
-          className="transition-transform transform hover:scale-105 text-yellow hover:text-cyan-800 object-cover rounded-full text-3xl "
-          onClick={handlefilterClick2}
-          helo
-        >
-        
-          Search
-        </button> 
+        <div className="flex">
+          <SearchButton />
+          <button
+            className="transition-transform transform hover:scale-105 text-yellow hover:text-cyan-800 object-cover rounded-full text-xl fas fa-search"
+            onClick={handlefilterClick2}
+          ></button>
+        </div>
       </div>
 
       <div>

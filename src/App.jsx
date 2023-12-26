@@ -1,24 +1,44 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
-import ItemCard from "./Components/Body";
 import Body from "./Components/Body";
-import SearchButton from "./Components/searchButton";
-
+import SearchContextProvider from "./Components/contexts/SearchContextProvider";
+import About from "./Components/About";
+import Contact from "./Components/Contact";
+import { Outlet, createBrowserRouter } from "react-router-dom";
+import ResMenu from "./ResMenu";
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <>
+    <SearchContextProvider>
       <Header />
- 
-
-      <Body />
+      <Outlet />
       <Footer />
-    </>
+    </SearchContextProvider>
   );
 }
+export const appRouter = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+    children: [
+      {
+        path: "/",
+        element: <Body />,
+      },
 
+      {
+        path: "/about",
+        element: <About />,
+      },
+      {
+        path: "/Contact",
+        element: <Contact />,
+      },
+      {
+        path : "/restaurants/:resId",
+        element : <ResMenu/>
+      }
+    ],
+  },
+]);
 export default App;
