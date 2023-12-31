@@ -7,13 +7,18 @@ import About from "./Components/About";
 import Contact from "./Components/Contact";
 import { Outlet, createBrowserRouter } from "react-router-dom";
 import ResMenu from "./ResMenu";
+import store from "./Components/Store/Store";
+import { Provider } from "react-redux";
+import Cart from "./Components/Cart";
 function App() {
   return (
-    <SearchContextProvider>
-      <Header />
-      <Outlet />
-      <Footer />
-    </SearchContextProvider>
+    <Provider store={store}>
+      <SearchContextProvider>
+        <Header />
+        <Outlet />
+        <Footer />
+      </SearchContextProvider>
+    </Provider>
   );
 }
 export const appRouter = createBrowserRouter([
@@ -35,9 +40,13 @@ export const appRouter = createBrowserRouter([
         element: <Contact />,
       },
       {
-        path : "/restaurants/:resId",
-        element : <ResMenu/>
-      }
+        path: "/restaurants/:resId",
+        element: <ResMenu />,
+      },
+      {
+        path: "/cart",
+        element: <Cart />,
+      },
     ],
   },
 ]);

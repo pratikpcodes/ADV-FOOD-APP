@@ -2,7 +2,12 @@
 import React from 'react';
 import logo from '../assets/logo.jpg'
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import store from './Store/Store';
 const Header = () => {
+  const selector = useSelector((store)=>store.cart.items);
+
+ 
   return (
     <header className="bg-gradient-to-r from-cyan-700 to-cyan-900 text-white p-6 border-b border-2 border-black   ">
       <div className="container mx-auto ">
@@ -26,7 +31,12 @@ const Header = () => {
           </nav>
           <div className="flex items-center">
             <button className="ml-4 p-2 rounded-sm hover:bg-white hover:text-purple-800 text-md font-bold">Log In</button>
-            <button className="ml-4 p-2 rounded-sm hover:bg-white hover:text-purple-800 text-md font-bold">Cart</button>
+           
+           <Link to= "/cart">
+           
+           <button className="ml-4 p-2 rounded-sm hover:bg-white hover:text-purple-800 text-md font-bold">Cart{"--"+selector.length}</button>
+           </Link>
+           
 
             
             {/* <button className="ml-4 p-2 hover:bg-white hover:text-purple-800 text-md font-bold ">Sign Up</button> */

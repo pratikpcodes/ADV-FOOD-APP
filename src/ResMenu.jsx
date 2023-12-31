@@ -38,13 +38,16 @@ function ResMenu() {
     locality,
     areaName,
     sla,
+    avgRatingString,
     aggregatedDiscountInfo,
+    totalRatingsString,
   } = menu?.data?.cards[0].card.card.info;
   // console.log(menu?.data.cards[2].groupedCard.cardGroupMap.REGULAR.cards[1].card.card);
   const { itemCards } =
     menu?.data?.cards[2].groupedCard.cardGroupMap.REGULAR.cards[1].card.card;
 
-  // console.log(menu.data.cards[0].card.card.info);
+  console.log(avgRatingString);
+  console.log(menu.data.cards[0].card.card.info);
   // console.log(aggregatedDiscountInfo.descriptionList);
   // console.log(menu.data.cards[0].card.card.info)
   // console.log(itemCards[0].card.info.name);
@@ -62,7 +65,7 @@ function ResMenu() {
   // console.log(card2[0].card.card.itemCards)
   // console.log(card2[0].card.card.itemCards[0].card.info.name);
   // console.log(card2[0].card.card.itemCards[1].card.info.name);
-  console.log(card2);
+  // console.log(card2);
 
   ///
 
@@ -90,11 +93,22 @@ function ResMenu() {
 
       <div className=" container m-auto ">
         <div className=" items-center justify-center m-20">
-          <h1 className="font-bold text-xl m-0 p-0">{name}</h1>
-          <h1 className=" text-gray-500 text-sm m-0 p-0">{cuisines}</h1>
+          <div className="flex justify-between ">
+            <h1 className="font-bold text-xl m-0 p-0">{name}</h1>
+            <h2 className="font-bold text-xl mr-6 p-0 ">
+              {avgRatingString} &#9733;
+            </h2>
+          </div>
+          <div className="flex justify-between">
+            <h1 className=" text-gray-500 text-sm m-0 p-0">{cuisines}</h1>
+            <h1 className=" text-gray-500 text-sm mr-5 p-0">
+              {totalRatingsString}
+            </h1>
+          </div>
           <h3 className=" text-gray-500 text-sm m-0 p-0">
             {city + "," + locality}
           </h3>
+
           {/* {"RES ID:" + id} */}
           <h1 className=" text-gray-500 text-sm mt-5 p-0">
             {areaName + " " + sla?.lastMileTravelString}
@@ -102,6 +116,7 @@ function ResMenu() {
           {/* <h2>{cloudinaryImageId}</h2> */}
           <div className=" 30mins mt-10 flex items-center">
             <svg
+              className="mr-4"
               xmlns="http://www.w3.org/2000/svg"
               width="20"
               height="20"
@@ -110,7 +125,10 @@ function ResMenu() {
               <path d="M15,3C8.373,3,3,8.373,3,15s5.373,12,12,12s12-5.373,12-12S21.627,3,15,3z M16,16H7.995C7.445,16,7,15.555,7,15.005v-0.011	C7,14.445,7.445,14,7.995,14H14V5.995C14,5.445,14.445,5,14.995,5h0.011C15.555,5,16,5.445,16,5.995V16z"></path>
             </svg>
 
-            <h2 className=" font-bold mr-10 ">{sla.slaString}</h2>
+            <h2 className=" font-bold mr-10 ">
+              {sla.slaString}
+              {" MINS"}
+            </h2>
 
             <h2 className=" font-bold ml-2 "> {costForTwoMessage}</h2>
           </div>
@@ -139,8 +157,6 @@ function ResMenu() {
             ))}
           </div>
         </div>
-
-        <div className="flex items-center m"></div>
 
         <MenuItemCard card2={card2} />
       </div>
