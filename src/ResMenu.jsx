@@ -4,16 +4,25 @@ import { API_URL, MENU_URL } from "./Components/constants";
 import { useEffect } from "react";
 import ShimmerUI from "./Components/ShimmerUI";
 import dis from "./assets/dis.png";
+
+import { MENU_URL2 } from "./Components/constants";
+import { useParams } from "react-router-dom";
+import { useId } from "react";
+import MenuItemCard from "./Components/MenuItemCard";
 function ResMenu() {
+  let offerid = useId();
   const [menu, setmenu] = useState(null);
-  const icon = `<svg class="h-8 w-8 text-red-500"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <circle cx="12" cy="12" r="9" />  <polyline points="12 7 12 12 15 15" /></svg>`;
+  const [vegOnly, setvegOnly] = useState("");
+  const { resId } = useParams();
   useEffect(() => {
     getMenuData();
   }, []);
   if (menu == null) return <ShimmerUI />;
 
   async function getMenuData() {
-    const data = await fetch(MENU_URL);
+    const data = await fetch(
+      MENU_URL2 + resId + "&catalog_qa=undefined&submitAction=ENTER"
+    );
 
     const jData = await data.json();
 
@@ -30,16 +39,55 @@ function ResMenu() {
     areaName,
     sla,
     aggregatedDiscountInfo,
-  } = menu.data.cards[0].card.card.info;
+  } = menu?.data?.cards[0].card.card.info;
   // console.log(menu?.data.cards[2].groupedCard.cardGroupMap.REGULAR.cards[1].card.card);
   const { itemCards } =
-    menu?.data.cards[2].groupedCard.cardGroupMap.REGULAR.cards[1].card.card;
+    menu?.data?.cards[2].groupedCard.cardGroupMap.REGULAR.cards[1].card.card;
+
   // console.log(menu.data.cards[0].card.card.info);
   // console.log(aggregatedDiscountInfo.descriptionList);
   // console.log(menu.data.cards[0].card.card.info)
   // console.log(itemCards[0].card.info.name);
+  // console.log(menu.data.cards[1].card.card.gridElements.infoWithStyle.offers[0].info.header)
+  const { offers } = menu?.data?.cards[1].card.card.gridElements.infoWithStyle;
+  // console.log(menu?.data?.cards[2].groupedCard.cardGroupMap.REGULAR.cards[1].card.card.itemCards[0].card.info.name)
+  // console.log(menu?.data?.cards)
+  const card2 =
+    menu?.data?.cards[2].groupedCard.cardGroupMap.REGULAR.cards.filter(
+      (index) =>
+        index.card.card?.["@type"] ==
+        "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
+    );
+
+  // console.log(card2[0].card.card.itemCards)
+  // console.log(card2[0].card.card.itemCards[0].card.info.name);
+  // console.log(card2[0].card.card.itemCards[1].card.info.name);
+  console.log(card2);
+
+  ///
+
   return (
     <>
+      {/* <div>
+        this is menu item card :::::::::::::::::
+        <MenuItemCard card2={card2} />
+      </div> */}
+
+      {/* <div className="font-bold">
+        {card2.map((index) => (
+          <>
+            <div>{index.card.card.title}</div>
+
+            <div className="menu card items font-normal ">
+               {index.card.card.itemCards[0].card.info.name} 
+              {index.card.card.itemCards.map((index) => (
+                <div>{index.card.info.name}</div>
+              ))}
+            </div>
+          </>
+        ))}
+      </div> */}
+
       <div className=" container m-auto ">
         <div className=" items-center justify-center m-20">
           <h1 className="font-bold text-xl m-0 p-0">{name}</h1>
@@ -47,10 +95,11 @@ function ResMenu() {
           <h3 className=" text-gray-500 text-sm m-0 p-0">
             {city + "," + locality}
           </h3>
+          {/* {"RES ID:" + id} */}
           <h1 className=" text-gray-500 text-sm mt-5 p-0">
-            {areaName + " " + sla.lastMileTravelString}
+            {areaName + " " + sla?.lastMileTravelString}
           </h1>
-          <h2>{cloudinaryImageId}</h2>
+          {/* <h2>{cloudinaryImageId}</h2> */}
           <div className=" 30mins mt-10 flex items-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -65,8 +114,9 @@ function ResMenu() {
 
             <h2 className=" font-bold ml-2 "> {costForTwoMessage}</h2>
           </div>
+
           <div className="Discount mt-10 flex items-center text-gray-500">
-            {aggregatedDiscountInfo.descriptionList.map((item) => (
+            {/* {aggregatedDiscountInfo.descriptionList.map((item) => (
               <>
                 <img
                   className=" object-cover w-6 h-6 m-0 p-0"
@@ -75,46 +125,24 @@ function ResMenu() {
                 />
                 <h2 className="mr-4 font-bold ">{item.meta}</h2>
               </>
+            ))} */}
+
+            {offers?.map((item) => (
+              <div>
+                <img
+                  className=" object-cover w-6 h-6 m-0 p-0"
+                  src={dis}
+                  alt=""
+                />
+                <h2 className="mr-4 font-bold ">{item.info.header}</h2>
+              </div>
             ))}
           </div>
         </div>
 
-        <div>
-          {itemCards.map((item) => (
-            <div className="font-bold text-gray-600 border border-solid border-gray-500 w-auto h-auto ">
-              <div className="mt-5">
-                {item.card.info.name.includes("Chicken") == true ? (
-                  <div>
-                    <img
-                      className=" object-cover w-5 h-5"
-                      src="https://img.icons8.com/?size=48&id=61082&format=png"
-                      alt="helo"
-                    />
-                  </div>
-                ) : (
-                  <div>
-                    {" "}
-                    <img
-                      className=" object-cover w-5 h-5"
-                      src="https://img.icons8.com/?size=48&id=61083&format=png"
-                      alt="helo"
-                    />
-                  </div>
-                )}
-                {item.card.info.name}
-                {console.log(item.card.info.name)}
+        <div className="flex items-center m"></div>
 
-                <div className="font-normal">
-                  {"₹ " + item.card.info.price / 100}
-                </div>
-
-                <div className="mt-4 opacity-75 font-normal font-serif">
-                  {item.card.info.description}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+        <MenuItemCard card2={card2} />
       </div>
     </>
   );

@@ -8,6 +8,7 @@ import ShimmerUI from "./ShimmerUI";
 import SearchButton from "./searchButton";
 import SearchContext from "./contexts/SearchContext";
 import { useContext } from "react";
+import { Link } from "react-router-dom";
 function Body() {
   let [finalData, setFinalData] = useState([]);
   let [demo, setdemo] = useState([]);
@@ -59,7 +60,8 @@ function Body() {
 
       setFinalData(resData);
       setdemo(resData);
-      console.log(finalData);
+
+
     } catch (error) {
       console.log("ERROR OCCURED:::FETCH:::", error.message);
     }
@@ -76,15 +78,17 @@ function Body() {
       setFinalData(demo);
     }
   };
+  // console.log(finalData);
+
   const handlefilterClick2 = () => {
     let filtered2 = demo.filter((index) =>
       index.info.name.toLowerCase().includes(searchTxt.toLowerCase())
     );
-    console.log(filtered2);
+    // console.log(filtered2);
     setFinalData(filtered2);
     if (searchTxt.length == 0) setFinalData(demo);
   };
-  console.log(searchTxt + "from body.jsx");
+  // console.log(searchTxt + "from body.jsx");
 
   return (
     <div className="container mx-auto ">
@@ -110,9 +114,12 @@ function Body() {
         ) : (
           <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 ">
             {finalData.map((index) => {
-              return <ItemCard key={index?.info?.id} {...index?.info} />;
+           
+              return <Link to={"/restaurants/"+index?.info?.id}><ItemCard key={index?.info?.id} {...index?.info}
+               /> </Link>
             })}
           </div>
+          
         )}
       </div>
     </div>
