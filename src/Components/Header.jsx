@@ -6,6 +6,8 @@ import { useSelector } from 'react-redux';
 import store from './Store/Store';
 const Header = () => {
   const selector = useSelector((store)=>store.cart.items);
+  const qty= useSelector((store)=>store.cart.totalQty);
+
 
  
   return (
@@ -34,7 +36,8 @@ const Header = () => {
            
            <Link to= "/cart">
            
-           <button className="ml-4 p-2 rounded-sm hover:bg-white hover:text-purple-800 text-md font-bold">Cart{"--"+selector.length}</button>
+           <button className="ml-4 p-2 rounded-sm hover:bg-white hover:text-purple-800 text-md font-bold">Cart{"--"+qty}</button>
+         
            </Link>
            
 

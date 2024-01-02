@@ -10,7 +10,7 @@ function MenuItemCard(card2) {
   const [toggle, settoggle] = useState();
   //   console.log(itemCard);
   const dispatch = useDispatch();
-  const CartDispatch = ({info}) => {
+  const CartDispatch = ({ info }) => {
     dispatch(addItem(info));
   };
 
@@ -104,15 +104,14 @@ function MenuItemCard(card2) {
                           }
                           alt="helo"
                         />
-                      
 
                         <button
-                          className=" bg-black  hover:scale-105 rounded-md text-white p-1  w-min  scale-75 absolute bottom-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 "
-                          onClick={()=>{
-                            CartDispatch(index.card)
+                          className=" bg-black  hover:scale-95 rounded-md text-white w-40 scale-75 absolute bottom-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 "
+                          onClick={() => {
+                            CartDispatch(index.card);
                           }}
                         >
-                          Add +
+                          Add to cart +
                         </button>
                         {console.log(index.card.info.name)}
                       </div>
@@ -142,7 +141,7 @@ function MenuItemCard(card2) {
 
                           <div className=" img object-cover">
                             <img
-                              className=" w-100 h-100 object-cover rounded-sm "
+                              className=" w-100 h-100 object-contain rounded-sm "
                               src={
                                 "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_208,h_208,c_fit/" +
                                 index?.card?.info.imageId
