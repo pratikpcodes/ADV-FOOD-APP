@@ -6,22 +6,28 @@ import store from "./Store/Store";
 const Header = () => {
   const selector = useSelector((store) => store.cart.items);
   const qty = useSelector((store) => store.cart.totalQty);
-  //bg-gradient-to-r from-cyan-700 to-cyan-900
+  //bg-gradient-to-r from-cyan-700 to-cyan-900 .... transition-transform transform hover:scale-105
 
   return (
-    <header className=" mx-4 mt-4 scale-90 border-b  border-stone-700 rounded-3xl  bg-white text-black p-4 transition-bg hover:bg-gray-900 hover:text-white  transition-transform transform hover:scale-105">
+    <header className=" mx-4 mt-4 scale-90 border-b  border-stone-700 rounded-3xl  bg-white text-black p-4 transition-bg  hover:text-white  transition-all hover:bg-gray-900 hover:scale-105">
       <div className="container  ">
         <div className="flex justify-around items-center m-0 p-0">
           <div className="logo">
             <Link to="/">
-              <img className="h-20 w-20 rounded-full  transition-transform transform hover:scale-75 " src={logo} alt="no" />
+              <img
+                className="h-20 w-20 rounded-full  transition-transform transform hover:scale-75 "
+                src={logo}
+                alt="no"
+              />
             </Link>
           </div>
           <div>
             <h1 className="text-md font-extrabold leading-tight transition-transform transform hover:scale-125  hover:text-slate-300  ">
               Food Heist
             </h1>
-            <p className="mt-0 text-md transition-transform transform hover:scale-90  hover:text-slate-300">A single stop for your food cravings</p>
+            <p className="mt-0 text-md transition-transform transform hover:scale-90  hover:text-slate-300">
+              A single stop for your food cravings
+            </p>
           </div>
           <nav className="flex items-center space-x-6">
             <Link

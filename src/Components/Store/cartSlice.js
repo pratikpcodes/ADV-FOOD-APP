@@ -5,7 +5,8 @@ const cartSlice = createSlice({
   initialState: {
     items: [],
     totalQty: 0,
-    indQ:[]
+    totalPrice: 0,
+    indQ: [],
   },
 
   reducers: {
@@ -18,23 +19,30 @@ const cartSlice = createSlice({
           ...state.items[checkIndex],
           quantity: state.items[checkIndex].quantity + 1,
         };
-
-        console.log(state.items[checkIndex].quantity + " after 1st"); 
-      
-
-        
       } else {
         // let firstPush = { ...action.payload,qnty:1 };
         let firstPush = { ...action.payload, quantity: 1 };
-        // console.log(firstPush.quantity + " before First"); *************
+
+        // console.log(firstPush.price + " before First");
 
         state.items.push(firstPush);
+
+        // console.log(state.items[checkIndex].price);
       }
+
       state.totalQty = state.items
         .map((index) => index.quantity)
         .reduce((accumulator, currentValue) => accumulator + currentValue, 0);
       // console.log(state.totalQty + "  :  :rtjfdijfdk ::::::::::::: total");
       // state.items.push(action.payload);
+      state.items.map((index) => index.price * index.quantity);
+
+      state.totalPrice=
+        state.items
+          .map((index) => index.price * index.quantity)
+          .reduce((accumulator, currentValue) => accumulator + currentValue, 0)
+        
+      
     },
     removeItem: (state, action) => {
       state.items.map((item) => {
@@ -48,42 +56,62 @@ const cartSlice = createSlice({
       state.totalQty = state.items
         .map((index) => index.quantity)
         .reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+        state.totalPrice=
+        state.items
+          .map((index) => index.price * index.quantity)
+          .reduce((accumulator, currentValue) => accumulator + currentValue, 0)
     },
     clearCart: (state) => {
       state.items.length = 0;
-      state.totalQty=0;
+      state.totalQty = 0;
     },
 
-    increaseCart: (state,action)=>{
-      state.totalQty=state.totalQty+1
+    increaseCart: (state, action) => {
+      state.totalQty = state.totalQty + 1;
       const checkIndex = state.items.findIndex(
         (item) => item.id === action.payload.id
-      )
+      );
       state.items[checkIndex] = {
         ...state.items[checkIndex],
         quantity: state.items[checkIndex].quantity + 1,
       };
+      state.totalPrice=
+      state.items
+        .map((index) => index.price * index.quantity)
+        .reduce((accumulator, currentValue) => accumulator + currentValue, 0)
 
-      
 
     },
-    decreaseCart: (state,action)=>{
-      state.totalQty=state.totalQty-1
+    decreaseCart: (state, action) => {
+      state.totalQty = Math.max(state.totalQty - 1,0);
+
       const checkIndex = state.items.findIndex(
         (item) => item.id === action.payload.id
-      )
+      );
       state.items[checkIndex] = {
         ...state.items[checkIndex],
-        quantity: state.items[checkIndex].quantity -1,
+        quantity: Math.max(state.items[checkIndex].quantity - 1,0),
       };
-
+      state.totalPrice=
+      state.items
+        .map((index) => index.price * index.quantity)
+        .reduce((accumulator, currentValue) => accumulator + currentValue, 0)
       
-
-    },
-
    
+   
+   
+   
+      },
+      // --------------------logic built here--------------------
+    // totalPrice: (state) => {
+    //   state.totalPrice = state.items
+    //     .map((index) => index.price * index.quantity)
+    //     .reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+    //   console.log(state.totalPrice);
+    // },
   },
 });
 
-export const { addItem, removeItem, clearCart,increaseCart,decreaseCart } = cartSlice.actions;
+export const { addItem, removeItem, clearCart, increaseCart, decreaseCart } =
+  cartSlice.actions;
 export default cartSlice.reducer;

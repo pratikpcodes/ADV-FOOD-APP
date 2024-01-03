@@ -4,10 +4,11 @@ import { useDispatch } from "react-redux";
 import { clearCart } from "./Store/cartSlice";
 import { removeItem } from "./Store/cartSlice";
 import { increaseCart } from "./Store/cartSlice";
-import {decreaseCart} from './Store/cartSlice'
+import { decreaseCart } from "./Store/cartSlice";
 function Cart() {
   const dispatch = useDispatch();
   const selector = useSelector((store) => store.cart.items);
+  const total = useSelector((store) => store.cart.totalPrice);
 
   const demo = useSelector((store) =>
     store.cart.items.map((index) => index.quantity)
@@ -21,6 +22,8 @@ function Cart() {
   console.log(demo + "  this  :::::::");
   console.log(demo2 + "  this  :::::::");
   const qty = useSelector((store) => store.cart.totalQty);
+  const totalPrice = useSelector((store) => store.cart.totalPrice);
+  console.log(totalPrice);
 
   // console.log(selector);
 
@@ -33,7 +36,7 @@ function Cart() {
   };
   return (
     <div className="w-full  min-h-svh">
-      <div className="40 mt-20 ">
+      <div className="mt-20 flex mx-0 p-10 w-full ">
         <button
           className=" bg-black transition-transform transform hover:scale-95 rounded-md text-white w-40 scale-75 absolute left-1/2  -translate-x-1/2 -translate-y-1/2 "
           onClick={() => {
@@ -42,8 +45,11 @@ function Cart() {
         >
           {qty == 0 ? "No Items Left" : "Clear All " + qty + " Items"}
         </button>
+        <h1 className=" text-3xl  font-semibold italic transition-transform transform hover:scale-75 rounded-md text-gray-900  scale-95 absolute left-3/4 -translate-x-1/2 -translate-y-1/2 ">
+          {  "Total Price : ₹ " + Math.floor(totalPrice / 100)}
+        </h1>
       </div>
-      <div className="font-bold text-gray-600 justify-between m-20 items-center h-min w-auto">
+      <div className="font-bold  text-gray-600 justify-between m-20 items-center h-screen w-auto">
         {selector.map((index) => (
           <div className=" w-full p-10 flex justify-between items-center ">
             <div className=" ">
@@ -70,13 +76,15 @@ function Cart() {
                 </h2>
                 &#160;
                 <button
-                
-                onClick={() => {
-                 
-                  dispatch(decreaseCart(index));
-                  console.log(index);
-                }}
-                className="decrease text-xl "> &#10507;</button>
+                  onClick={() => {
+                    dispatch(decreaseCart(index));
+                    console.log(index);
+                  }}
+                  className="decrease text-xl "
+                >
+                  {" "}
+                  &#10507;
+                </button>
               </div>
 
               {console.log(
