@@ -3,9 +3,12 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { clearCart } from "./Store/cartSlice";
 import { removeItem } from "./Store/cartSlice";
+import { increaseCart } from "./Store/cartSlice";
+import {decreaseCart} from './Store/cartSlice'
 function Cart() {
   const dispatch = useDispatch();
   const selector = useSelector((store) => store.cart.items);
+
   const demo = useSelector((store) =>
     store.cart.items.map((index) => index.quantity)
   );
@@ -13,6 +16,8 @@ function Cart() {
     (accumulator, currentValue) => accumulator + currentValue,
     0
   );
+
+  // const demo3 = useSelector((store)=>store.cart.items
   console.log(demo + "  this  :::::::");
   console.log(demo2 + "  this  :::::::");
   const qty = useSelector((store) => store.cart.totalQty);
@@ -43,6 +48,41 @@ function Cart() {
           <div className=" w-full p-10 flex justify-between items-center ">
             <div className=" ">
               <h1>{index.name} </h1>
+              <div className="flex">
+                <h2>
+                  {" Qty : "}
+                  <button
+                    onClick={() => {
+                      dispatch(increaseCart(index));
+                      console.log(index);
+                    }}
+                    className=" increase text-xl"
+                  >
+                    {" "}
+                    &#10506;
+                  </button>
+                  &#160;
+                  {
+                    selector[selector.findIndex((item) => item.id === index.id)]
+                      .quantity
+                  }
+                  &#160;
+                </h2>
+                &#160;
+                <button
+                
+                onClick={() => {
+                 
+                  dispatch(decreaseCart(index));
+                  console.log(index);
+                }}
+                className="decrease text-xl "> &#10507;</button>
+              </div>
+
+              {console.log(
+                selector[selector.findIndex((item) => item.id === index.id)]
+                  .quantity
+              )}
 
               <div className="font-normal w-3/4">
                 <h1>{"₹ " + Math.floor(index.price / 100)} </h1>
@@ -59,6 +99,7 @@ function Cart() {
                 }
                 alt="helo"
               />
+
               <button
                 onClick={() => {
                   handleDeleteItem(index);
