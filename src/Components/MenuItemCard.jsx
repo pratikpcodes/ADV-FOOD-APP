@@ -106,7 +106,7 @@ function MenuItemCard(card2) {
                         />
 
                         <button
-                          className=" bg-black  hover:scale-95 rounded-md text-white w-40 scale-75 absolute bottom-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 "
+                          className=" bg-black  transition-transform transform hover:scale-75 rounded-md text-white w-40  scale-90  absolute bottom-0 left-1/2  -translate-x-1/2 -translate-y-1/2 "
                           onClick={() => {
                             CartDispatch(index.card);
                           }}
