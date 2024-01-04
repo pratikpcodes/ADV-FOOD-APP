@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Header from "./Header";
-// import { validate } from "../utils/validate";
+import { validate } from "./validate";
+
 import { useRef } from "react";
 const Login = () => {
   const [isSignIn, setIsSignIn] = useState(true);
@@ -22,22 +22,25 @@ const Login = () => {
     setPhone(!phone);
   };
 
-  //   const handleClick = () => {
-  //     const [emailvalid, passvalid, namevalid, mobilevalid] = validate(
-  //       email?.current?.value,
-  //       password?.current?.value,
-  //       name?.current?.value,
-  //       mobile?.current?.value
-  //     );
-  //     console.log(emailvalid, passvalid);
-  //     setPassValid(passvalid);
-  //     setEmailValid(emailvalid);
-  //     setNameValid(namevalid);
-  //     setMobileValid(mobilevalid);
+  const handleClick = () => {
+    const [emailvalid, passvalid, namevalid, mobilevalid] = validate(
+      email?.current?.value,
+      password?.current?.value,
+      name?.current?.value,
+      mobile?.current?.value
+    );
+    console.log(emailvalid, passvalid);
+    setPassValid(passvalid);
+    setEmailValid(emailvalid);
+    setNameValid(namevalid);
+    setMobileValid(mobilevalid);
 
-  //     // password.current.value
-  //   };
-  const handleClickN = () => {};
+    // password.current.value
+  };
+
+  if (handleClick) {
+    console.log("done");
+  }
   return (
     <div class=" relative flex  min-h-screen justify-center items-center">
       <img
@@ -52,7 +55,7 @@ const Login = () => {
         <form onSubmit={(e) => e.preventDefault()}>
           {!isSignIn && (
             <div class="mb-6">
-              <label class="block text-white text-sm font-bold mb-2">
+              <label class="block text-white text-sm font-light mb-2">
                 Name
               </label>
               <input
@@ -62,7 +65,7 @@ const Login = () => {
                 type="Name"
                 placeholder="Enter Name"
               />
-              <p className="block text-white text-sm font-bold mb-2">
+              <p className="block text-white text-sm font-normal mb-2">
                 {namevalid}
               </p>
             </div>
@@ -75,32 +78,14 @@ const Login = () => {
               </label>
               <input
                 ref={mobile}
-                class="appearance-none border rounded w-full py-4 px-6 text-gray-700 leading-tight "
+                class="appearance-none border rounded w-full py-4 px-6 text-gray-700 leading-tight mb-2 "
                 id="Phone Number"
                 type="Phone Number"
                 placeholder="Enter Phone Number"
               />
-              <p className="block text-white text-sm font-bold mb-2">
+              <p className="block text-white text-sm  font-normal mb-2">
                 {mobilevalid}
               </p>
-            </div>
-          ) : (
-            <>
-              <div class="mb-4 ">
-                <label class="block text-white text-sm font-bold mb-2">
-                  Email
-                </label>
-                <input
-                  ref={email}
-                  placeholder="youremail@example.com"
-                  class="rounded w-full  mx-auto py-4 px-6  text-gray-700 "
-                  id="email"
-                  type="email"
-                />
-                <p className="block text-white text-sm font-bold mb-2">
-                  {emailvalid}
-                </p>
-              </div>
 
               <div class="mb-6">
                 <label class="block text-white text-sm font-bold mb-2">
@@ -117,21 +102,55 @@ const Login = () => {
                   {passvalid}
                 </p>
               </div>
+            </div>
+          ) : (
+            <>
+              <div class="mb-4 ">
+                <label class="block text-white text-sm font-bold mb-2">
+                  Email
+                </label>
+                <input
+                  ref={email}
+                  placeholder="youremail@example.com"
+                  class="rounded w-full  mx-auto py-4 px-6  text-gray-700 "
+                  id="email"
+                  type="email"
+                />
+                <p className="block text-white text-sm font-normal mb-2">
+                  {emailvalid}
+                </p>
+              </div>
+
+              <div class="mb-6">
+                <label class="block text-white text-sm font-bold mb-2">
+                  Password
+                </label>
+                <input
+                  ref={password}
+                  class="appearance-none border rounded w-full py-4 px-6  text-gray-700 leading-tight "
+                  id="password"
+                  type="password"
+                  placeholder="********"
+                />
+                <p className="block text-white text-sm font-normal mb-2">
+                  {passvalid}
+                </p>
+              </div>
             </>
           )}
 
           {!isSignIn && (
             <div class="mb-6">
               <label class="block text-white text-sm font-bold mb-2">
-                Phone
+                Password
               </label>
               <input
                 class="appearance-none border rounded w-full py-4 px-6 text-black leading-tight "
                 id="Phone"
                 type="tel"
-                placeholder="Enter Phone"
+                placeholder="Enter PassWord"
               />
-              <p className="block text-white text-sm font-bold mb-2">
+              <p className="block text-white text-sm font-normal mb-2">
                 {mobilevalid}
               </p>
             </div>
@@ -141,6 +160,7 @@ const Login = () => {
               //   class="bg-red-700 hover:bg-red-950 text-white font-bold py-4 px-8 rounded w-full"
               className="mt-4 scale-110 border-b w-full border-stone-700 font-extrabold  bg-gray-900 text-white p-4 transition-bg  tracking-wider hover:text-black  transition-all hover:bg-white hover:scale-95"
               type="submit"
+              onClick={handleClick}
             >
               {isSignIn ? "Sign In" : "Sign Up"}
             </button>
@@ -160,20 +180,20 @@ const Login = () => {
           {hidelogphone && (
             <div class="justify-between flex mt-6">
               <div>
-                <p onClick={PhoneLogin} class="text-white text-sm">
+                <button onClick={PhoneLogin} class="text-white text-sm">
                   {phone ? "Sign In phone" : "Sign in email"}
-                </p>
+                </button>
               </div>
             </div>
           )}
 
           <div class="justify-between flex mt-10 pb-12">
             <div>
-              <p onClick={toggleSignInForm} class="text-white text-sm">
+              <button onClick={toggleSignInForm} class="text-white text-sm">
                 {isSignIn
                   ? "New to Netflix? Sign Up Now"
                   : "Already a User? Sign In"}
-              </p>
+              </button>
             </div>
           </div>
           <div class="text-white opacity-70 mb-20">

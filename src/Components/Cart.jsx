@@ -35,8 +35,9 @@ function Cart() {
     dispatch(removeItem(index));
   };
   return (
-    <div className="w-full  min-h-svh">
-      <div className="mt-20 flex mx-0 p-10 w-full ">
+
+     <div className="w-full  min-h-svh ">
+      <div className="mt-20  mx-0 p-10 w-full ">
         <button
           className=" bg-black transition-transform transform hover:scale-95 rounded-md text-white w-40 scale-75 absolute left-1/2  -translate-x-1/2 -translate-y-1/2 "
           onClick={() => {
@@ -49,7 +50,7 @@ function Cart() {
           {  "Total Price : ₹ " + Math.floor(totalPrice / 100)}
         </h1>
       </div>
-      <div className="font-bold  text-gray-600 justify-between m-20 items-center h-screen w-auto">
+      <div className="font-bold  text-gray-600  m-20 items-center  w-auto">
         {selector.map((index) => (
           <div className=" w-full p-10 flex justify-between items-center ">
             <div className=" ">
@@ -121,6 +122,11 @@ function Cart() {
         ))}
       </div>
     </div>
+    
+    
+
+
+   
   );
 }
 

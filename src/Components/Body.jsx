@@ -89,9 +89,14 @@ function Body() {
   // console.log(searchTxt + "from body.jsx");
 
   return (
-    
+    <div class=" relative  w-full  h-full justify-center items-center opacity-90  transition duration-1000 ease-in-out hover:opacity-110">
+      <img
+        className="absolute w-full h-full "
+        src="https://wepik.com/api/image/ai/9b02e096-2140-4de6-8cc2-8d7e5e2e177f"
+        alt=""
+      />
 
-      <div className="container mx-auto  ">
+      <div className="mx-auto ">
         <div className=" items-center flex justify-between ">
           <button
             className="transition-transform transform hover:scale-105 text-black hover:text-cyan-800 object-cover rounded-full text-3xl "
@@ -124,7 +129,7 @@ function Body() {
           )}
         </div>
       </div>
-    
+    </div>
   );
 }
 

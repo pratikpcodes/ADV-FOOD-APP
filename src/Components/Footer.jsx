@@ -4,7 +4,7 @@ import "@fortawesome/fontawesome-free/css/all.css";
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-800 text-white p-2 relative w-full    ">
+    <footer className="bg-gray-800 text-white p-2 w-full  absolute translate-y-0     ">
       <div className="container mx-auto  ">
         <div className="mb-2 flex justify-around items-center ">
           <h3 className="text-md font-bold">Contact Us</h3>
