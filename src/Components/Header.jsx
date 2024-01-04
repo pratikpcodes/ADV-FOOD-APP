@@ -57,9 +57,17 @@ const Header = () => {
             </Link>
           </nav>
           <div className="flex items-center">
-            <button className="p-2 rounded-xl hover:bg-white hover:text-purple-800 text-md font-bold transition-transform transform hover:scale-75">
+           
+           <Link to='/login'>
+           <button className="p-2 rounded-xl hover:bg-white hover:text-purple-800 text-md font-bold transition-transform transform hover:scale-75">
               Log In
             </button>
+           
+           
+           
+           </Link>
+           
+          
 
             <Link to="/cart">
               <button className="p-2 rounded-xl hover:bg-white hover:text-purple-800 text-md font-bold transition-transform transform hover:scale-75">

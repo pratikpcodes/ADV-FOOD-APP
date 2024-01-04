@@ -10,12 +10,13 @@ import ResMenu from "./ResMenu";
 import store from "./Components/Store/Store";
 import { Provider } from "react-redux";
 import Cart from "./Components/Cart";
+import Login from "./Components/Login";
 function App() {
   return (
     <Provider store={store}>
       <SearchContextProvider>
         <Header />
-        <Outlet />
+        <Outlet/>
         <Footer />
       </SearchContextProvider>
     </Provider>
@@ -46,6 +47,10 @@ export const appRouter = createBrowserRouter([
       {
         path: "/cart",
         element: <Cart />,
+      },
+      {
+        path: "/login",
+        element: <Login />,
       },
     ],
   },

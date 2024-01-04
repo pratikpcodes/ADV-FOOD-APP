@@ -15,13 +15,14 @@ function ItemCard({
     <div className="m-2 transition-transform transform hover:scale-105 ">
       <div className=" Image:: flex items-center justify-center  rounded-2xl ">
         <img
-          className="object-cover w-80 h-64 rounded-3xl "
+          className="object-cover w-80 h-64 rounded-xl "
           src={IMG_URL + cloudinaryImageId}
           alt="SWIGGY"
         />
       </div>
 
-      <div className="flex items-center justify-center">
+
+      <div className="flex   items-center justify-center">
         <h1 className="text-lg font-semibold mb-2  items center">{name}</h1>
       </div>
 

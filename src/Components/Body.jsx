@@ -60,8 +60,6 @@ function Body() {
 
       setFinalData(resData);
       setdemo(resData);
-
-
     } catch (error) {
       console.log("ERROR OCCURED:::FETCH:::", error.message);
     }
@@ -91,38 +89,42 @@ function Body() {
   // console.log(searchTxt + "from body.jsx");
 
   return (
-    <div className="container mx-auto ">
-      <div className=" items-center flex justify-between ">
-        <button
-          className="transition-transform transform hover:scale-105 text-black hover:text-cyan-800 object-cover rounded-full text-3xl "
-          onClick={handlefilterClick}
-        >
-          &#9733;
-        </button>
-        <div className="flex">
-          <SearchButton />
+    
+
+      <div className="container mx-auto  ">
+        <div className=" items-center flex justify-between ">
           <button
-            className="transition-transform transform hover:scale-105 text-yellow hover:text-cyan-800 object-cover rounded-full text-xl fas fa-search"
-            onClick={handlefilterClick2}
-          ></button>
+            className="transition-transform transform hover:scale-105 text-black hover:text-cyan-800 object-cover rounded-full text-3xl "
+            onClick={handlefilterClick}
+          >
+            &#9733;
+          </button>
+          <div className="flex">
+            <SearchButton />
+            <button
+              className="transition-transform transform hover:scale-105 text-yellow hover:text-cyan-800 object-cover rounded-full text-xl fas fa-search"
+              onClick={handlefilterClick2}
+            ></button>
+          </div>
+        </div>
+
+        <div>
+          {finalData.length == 0 ? (
+            <ShimmerUI />
+          ) : (
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 ">
+              {finalData.map((index) => {
+                return (
+                  <Link to={"/restaurants/" + index?.info?.id}>
+                    <ItemCard key={index?.info?.id} {...index?.info} />{" "}
+                  </Link>
+                );
+              })}
+            </div>
+          )}
         </div>
       </div>
-
-      <div>
-        {finalData.length == 0 ? (
-          <ShimmerUI />
-        ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 ">
-            {finalData.map((index) => {
-           
-              return <Link to={"/restaurants/"+index?.info?.id}><ItemCard key={index?.info?.id} {...index?.info}
-               /> </Link>
-            })}
-          </div>
-          
-        )}
-      </div>
-    </div>
+    
   );
 }
 
