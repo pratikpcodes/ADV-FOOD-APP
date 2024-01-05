@@ -43,12 +43,12 @@ const Header = () => {
               About
             </Link>
 
-            <a
-              href="#"
+            <Link
+              to="/profile"
               className="text-md p-2 rounded-xl font-bold hover:text-purple-800 hover:bg-white transition-transform transform hover:scale-75"
             >
-              Portfolio
-            </a>
+              Profile
+            </Link>
             <Link
               to="/Contact"
               className="text-md p-2 rounded-xl font-bold hover:text-purple-800 hover:bg-white transition-transform transform hover:scale-75"

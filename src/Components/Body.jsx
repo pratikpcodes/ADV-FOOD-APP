@@ -9,7 +9,14 @@ import SearchButton from "./searchButton";
 import SearchContext from "./contexts/SearchContext";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { auth } from "../Firebase/Firebase";
+import { onAuthStateChanged } from "firebase/auth";
+
+import { useDispatch } from "react-redux";
+import { addUser, removeUser } from "./Store/userSlice";
+
 function Body() {
+  const dispatch = useDispatch();
   let [finalData, setFinalData] = useState([]);
   let [demo, setdemo] = useState([]);
   const [click, setclick] = useState(false);
@@ -22,7 +29,25 @@ function Body() {
   const { searchTxt, setsearchTxt } = useContext(SearchContext);
   useEffect(() => {
     getResData();
+    // onAuthStateChanged(auth, (user) => {
+    //   if (user) {
+    //     // User is signed in, see docs for a list of available properties
+    //     // https://firebase.google.com/docs/reference/js/auth.user
+    //     console.log("body:::::")
+    //     console,log(user)
+    //     const { uid, email, displayName } = user;
+    //     dispatch(addUser({ uid: uid, email: email, displayName: displayName }));
+    //     // ...
+    //   } else {
+    //     // User is signed out
+  
+    //     dispatch(removeUser());
+    //     // ...
+    //   }
+    // });
   }, []);
+
+ 
 
   // const fetchData = async () => {
 

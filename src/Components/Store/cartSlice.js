@@ -1,6 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const cartSlice = createSlice({
+const cartSlice = createSlice(
+  
+  {
   name: "cart",
   initialState: {
     items: [],
@@ -60,6 +62,7 @@ const cartSlice = createSlice({
     clearCart: (state) => {
       state.items.length = 0;
       state.totalQty = 0;
+      state.totalPrice=0;
     },
 
     increaseCart: (state, action) => {

@@ -1,8 +1,19 @@
 import React, { useState } from "react";
 import { validate } from "./validate";
-
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import { useRef } from "react";
+import { auth } from "../Firebase/Firebase";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+
+import { useDispatch } from "react-redux";
+import { addUser } from "./Store/userSlice";
 const Login = () => {
+  const dispatch = useDispatch();
   const [isSignIn, setIsSignIn] = useState(true);
   const [hidelogphone, setHidelogphone] = useState(true);
   const [phone, setPhone] = useState(true);
@@ -14,6 +25,8 @@ const Login = () => {
   const [passvalid, setPassValid] = useState();
   const [namevalid, setNameValid] = useState();
   const [mobilevalid, setMobileValid] = useState();
+
+  const navigate = useNavigate();
   const toggleSignInForm = () => {
     setIsSignIn(!isSignIn);
     setHidelogphone(!hidelogphone);
@@ -29,18 +42,96 @@ const Login = () => {
       name?.current?.value,
       mobile?.current?.value
     );
-    console.log(emailvalid, passvalid);
+    // console.log(emailvalid, passvalid);
     setPassValid(passvalid);
     setEmailValid(emailvalid);
     setNameValid(namevalid);
     setMobileValid(mobilevalid);
+    if (emailvalid || passvalid) {
+      console.log(emailvalid + " ::: " + passvalid + " :: ");
+      return;
+    }
+    if (!isSignIn) {
+      createUserWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          // Signed up
+          const user = userCredential.user;
+          console.log(user);
+          console.log(name.current.value);
 
-    // password.current.value
+          if (user !== null) {
+            // The user object has basic properties such as display name, email, etc.
+            const displayName = name.current.value;
+            const email = user.email;
+            const uid = user.uid;
+
+            const emailVerified = user.emailVerified;
+            dispatch(
+              addUser({ uid: uid, email: email, displayName: displayName })
+            );
+
+            // The user's ID, unique to the Firebase project. Do NOT use
+            // this value to authenticate with your backend server, if
+            // you have one. Use User.getToken() instead.
+
+           
+          }
+          navigate("/profile");
+
+          // ...
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log(errorCode + ":: " + errorMessage);
+          // ..
+        });
+    } else {
+      const auth = getAuth();
+      signInWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+
+          // console.log(user);
+
+          if (user !== null) {
+            // The user object has basic properties such as display name, email, etc.
+            const displayName = name.current.value;
+            const email = user.email;
+            const uid = user.uid;
+
+            const emailVerified = user.emailVerified;
+            dispatch(
+              addUser({ uid: uid, email: email, displayName: displayName })
+            );
+
+            // The user's ID, unique to the Firebase project. Do NOT use
+            // this value to authenticate with your backend server, if
+            // you have one. Use User.getToken() instead.
+
+           
+          }
+          navigate("/profile");
+
+          // ...
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log(errorCode + ":: sign ::in::" + errorMessage);
+        });
+    }
   };
 
-  if (handleClick) {
-    console.log("done");
-  }
   return (
     <div class=" relative flex  min-h-screen justify-center items-center">
       <img

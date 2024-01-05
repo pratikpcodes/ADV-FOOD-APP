@@ -5,8 +5,8 @@ import "react-loading-skeleton/dist/skeleton.css";
 function ShimmerCard() {
   return (
     <SkeletonTheme>
-      <div className="w-250px m-[10px] px-[10px] py-[5px] rounded-[5px] transition duration-300 ease-in-out hover:scale-110 shadow-md bg-slate-400 ">
-        <Skeleton className="w-[300px] h-[157.48px] rounded-[5px]" />
+      <div className="w-250px m-[10px] px-[10px] py-[5px] rounded-[5px] transition duration-300 ease-in-out hover:scale-110 shadow-lg bg-slate-200 ">
+        <Skeleton className="w-[300px] h-[157.48px] rounded-[5px] bg-slate-200" />
         <h3 className="m-[2px] font-Arvo font-normal">
           <Skeleton />
         </h3>

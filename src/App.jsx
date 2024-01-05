@@ -11,12 +11,13 @@ import store from "./Components/Store/Store";
 import { Provider } from "react-redux";
 import Cart from "./Components/Cart";
 import Login from "./Components/Login";
+import Profile from "./Components/Profile";
 function App() {
   return (
     <Provider store={store}>
       <SearchContextProvider>
         <Header />
-        <Outlet/>
+        <Outlet />
         <Footer />
       </SearchContextProvider>
     </Provider>
@@ -51,6 +52,10 @@ export const appRouter = createBrowserRouter([
       {
         path: "/login",
         element: <Login />,
+      },
+      {
+        path: "/profile",
+        element: <Profile />,
       },
     ],
   },
