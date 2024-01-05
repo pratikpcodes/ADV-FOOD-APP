@@ -12,13 +12,21 @@ import { Provider } from "react-redux";
 import Cart from "./Components/Cart";
 import Login from "./Components/Login";
 import Profile from "./Components/Profile";
+import { PersistGate } from "redux-persist/integration/react";
+import { persistStore } from "redux-persist";
+;
 function App() {
+  let persistor=persistStore(store)
+
   return (
     <Provider store={store}>
       <SearchContextProvider>
+
+        <PersistGate persistor={persistor}>
         <Header />
         <Outlet />
         <Footer />
+        </PersistGate>
       </SearchContextProvider>
     </Provider>
   );

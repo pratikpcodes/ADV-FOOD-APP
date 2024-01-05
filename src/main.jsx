@@ -6,6 +6,7 @@ import { appRouter } from "./App.jsx";
 import SearchContextProvider from "./Components/contexts/SearchContextProvider.jsx";
 import { createBrowserRouter } from "react-router-dom";
 import { RouterProvider } from "react-router-dom";
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <RouterProvider router={appRouter}/>
 );

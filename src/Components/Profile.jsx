@@ -8,8 +8,7 @@ import { useNavigate, useNavigation } from "react-router-dom";
 function Profile() {
   const nav = useNavigate();
 
-  const selector = useSelector((store) => store.user);
-  const arr = selector.displayName;
+  
 
   const handleSignOut = () => {
     signOut(auth)
@@ -32,7 +31,7 @@ function Profile() {
         className="bg-gray-900 text-white px-4 py-2 rounded-md hover:bg-white hover:text-black transition-all hover:scale-110 focus:outline-none focus:shadow-outline-blue"
       >
         {" "}
-        Sign Out : {arr}
+        Sign Out : 
       </button>
     </div>
   );
